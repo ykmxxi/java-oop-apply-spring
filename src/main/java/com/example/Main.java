@@ -2,14 +2,17 @@ package com.example;
 
 import java.util.Arrays;
 
-import com.example.logic.BubbleSort;
-import com.example.logic.Sort;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+
+import com.example.config.Config;
+import com.example.service.SortService;
 
 public class Main {
 	public static void main(String[] args) {
-		// DIP: 추상화에 의존해야지,구체화에 의존하면 안된다.
-		Sort<String> sort = new BubbleSort<>();
+		ApplicationContext context = new AnnotationConfigApplicationContext(Config.class);
+		SortService sortService = context.getBean(SortService.class);
 
-		System.out.println("result: " + sort.sort(Arrays.asList(args)));
+		System.out.println("result: " + sortService.doSort(Arrays.asList(args)));
 	}
 }
